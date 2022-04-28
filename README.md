@@ -8,4 +8,4 @@ Link: http://data.vision.ee.ethz.ch/cvl/gfanelli/kinect_head_pose_db.tgz
 2. Run preprocess_dataset.py
 3. Run VAE.ipynb
 4. Run generate_latent_embeddings.py
-5. Run mamal_head_pose.ipynb
+5. Run maml_head_pose.ipynb
