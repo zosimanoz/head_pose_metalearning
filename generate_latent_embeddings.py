@@ -1,16 +1,30 @@
+import os
 import torch
+import random
 import utils
 from dataloaders.BiwiDataLoader import BiwiDataLoader
-from configs import BATCH_SIZE, RANDOM_SEED
-from random_seeds import set_all_seeds, set_deterministic
 from models.vae import VAE
 import numpy as np
 from torch.autograd import Variable
 
-set_deterministic
-set_all_seeds(RANDOM_SEED)
 
+RANDOM_SEED = 123
+BATCH_SIZE = 64
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+
+def set_deterministic():
+    if torch.cuda.is_available():
+        torch.backends.cudnn.benchmark = False
+        torch.backends.cudnn.deterministic = True
+    torch.set_deterministic(True)
+    
+def set_global_seeds(seed):
+    os.environ["PL_GLOBAL_SEED"] = str(seed)
+    random.seed(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed_all(seed)
 
 def get_data(filename):
     dataset = utils.load_npz(filename)
